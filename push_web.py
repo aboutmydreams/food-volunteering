@@ -20,8 +20,8 @@ def sign_yes():
 def login():
     p1 = request.form['username']
     p2 = request.form['password']
-    if p1=='spxyzqs' and p2=='lsl2018':
-        return render_template("houtai.html")
+    if p1=='123' and p2=='zqs20182019':
+        return redirect('/houtai')
     else:
         #print(request.form['username'])#这是一个重要的flask用发
         if write_data.get_qian1()[0] in [0,3,4]:
@@ -33,6 +33,19 @@ def login():
 @app.route('/act-time',methods=['GET'])
 def get_time():
     return str(write_data.get_qian1())
+
+@app.route('/houtai', methods=['GET'])
+def login_set():
+    return render_template("set.html")
+
+@app.route('/houtai', methods=['POST'])
+def to_set():
+    p1 = request.form['username']
+    p2 = request.form['password']
+    if p1=='spxyzqs' and p2=='lsl2018':
+        return render_template("houtai.html")
+    else:
+        return '<h2>用户名或密码错误</h2><a href="/houtai">返回</a>'
 
 @app.route('/set', methods=['POST'])
 def set_it():

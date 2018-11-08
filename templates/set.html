@@ -1,33 +1,92 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh">
 <head>
-  <meta charset="utf-8">
-  <title>jQuery UI 日期选择器（Datepicker） - 默认功能</title>
-  <link rel="stylesheet" href="http://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
-  <script src="../static/js/ui.js"></script>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $(function() {
-    $( "#datepicker" ).datepicker();
-  });
-  </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example that shows off a responsive product landing page.">
+    <title>食品学院自强社</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="../static/css/layouts/marketing.css">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style type="text/css">
+      .content-wrapper1 {
+        position: absolute;
+        top: 94%;
+        width: 100%;
+        min-height: 6%;
+        z-index: 2;
+        background: white;
+      }
+    </style>
+
 </head>
 <body>
- 
-<p>日期：<input type="text" id="datepicker"></p>
 
 <script>
-$(document).ready(function(){
-  $("button").click(function(){
-    $.get("http://www.runoob.com",function(data,status){
-      alert("数据: " + data + "\n状态: " + status);
-    });
-  });
-});
+function validateForm() {
+    var x = document.forms["myForm"]["username"].value;
+    var y = document.forms["myForm"]["password"].value;
+    if (x == null || x == "") {
+        alert("需要输入用户名哟");
+        return false;
+    }
+    if (y == null || y == "") {
+        alert("需要输入密码哟");
+        return false;
+      }
+}
 </script>
-<button>发送一个 HTTP GET 请求并获取返回结果</button>
- 
- 
+
+
+
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="">Shoujibiao</a>
+
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item"><a href="" class="pure-menu-link">Home</a></li>
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link" id="tour1">Tour</a></li>
+            <li class="pure-menu-item"><a class="pure-menu-link" id="longin_di">Sign Up</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="blue-con" class="container-green">
+    <div class="splash">
+                <h2 class="content-head is-center">Sign up for activities</h2>
+        <div class="pure-g">
+            <div class="l-box-lrg pure-u-1">
+                <form class="pure-form pure-form-stacked" action="/houtai" method="post" onsubmit="return validateForm()" name="myForm">
+                    <fieldset>
+                        <label for="email">Your Name</label>
+                        <input id="name1" type="text" name="username" placeholder="用户名">
+
+                        <label for="password">Your password</label>
+                        <input id="ph1" type="password" name="password" placeholder="密码">
+
+                        <button type="submit" id="queren" class="pure-button pure-button-primary">确认登陆</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <p class="splash-subhead">
+            我们乐于奉献，我们勇于发光，we create a beautiful world.
+        </p>
+    </div>
+</div>
+
+<div class="content-wrapper1">
+    <div class="footer l-box is-center">
+        To develop more love
+    </div>
+</div>
+
+
+
+
+
 </body>
 </html>

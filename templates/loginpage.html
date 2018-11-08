@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <link rel="stylesheet" href="../static/css/layouts/marketing.css">
+    <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?368897b2e1156201d1af226d6309d364";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>
 
@@ -24,13 +25,13 @@
       gtag('set', {'user_id': 'USER_ID'}); // 使用已登录的 user_id 来设置用户 ID。
     </script>
 
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!--     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
       (adsbygoogle = window.adsbygoogle || []).push({
         google_ad_client: "ca-pub-2559434605565280",
         enable_page_level_ads: true
       });
-    </script>
+    </script> -->
 
 </head>
 <body>
@@ -47,10 +48,15 @@ function validateForm() {
         alert("需要输入联系电话哟");
         return false;
     }
-    if ( y.length == ()) {
-        alert("需要输入联系电话哟");
+    if (x.length>4) {
+        alert("正确输入姓名哟");
         return false;
     }
+    if (y.length!=11) {
+        alert("正确输入联系电话哟");
+        return false;
+    }
+
 }
 </script>
 
