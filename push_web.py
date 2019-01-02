@@ -4,9 +4,9 @@ from flask import Flask,redirect,url_for,render_template,request,send_file,send_
 import base64
 
 app = Flask(__name__)
-@app.route('/', methods=['GET'])
-def loginpage1():
-    return render_template("loginpage.html")
+# @app.route('/', methods=['GET'])
+# def loginpage1():
+#     return render_template("loginpage.html")
 
 @app.route('/acset', methods=['GET'])
 def loginpage():
@@ -45,7 +45,7 @@ def to_set():
     if p1=='spxyzqs' and p2=='lsl2018':
         return render_template("houtai.html")
     else:
-        return '<h2>用户名或密码错误</h2><a href="/houtai">返回</a>'
+        return '<h2>用户名或密码错误</h2><h1><a href="/houtai">返回</a></h1>'
 
 @app.route('/set', methods=['POST'])
 def set_it():
@@ -84,6 +84,9 @@ def download_file(filename):
     # 需要知道2个参数, 第1个参数是本地目录的path, 第2个参数是文件名(带扩展名)
     directory = os.getcwd()  # 假设在当前目录
     return send_from_directory(directory, filename, as_attachment=True)
+
+
+print('hi')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=80,debug=True)

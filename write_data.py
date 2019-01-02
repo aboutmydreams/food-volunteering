@@ -141,7 +141,7 @@ def get_qian1():
     setnum = int(data[-1])#设定名额
     now_num1 = now_num()#当前名额
     if (starttime > today1) or ((starttime==today1) and (int(hour)<21)):
-        return [4,data,now_num1]
+    	return [4,data,now_num1]
     if setnum > int(now_num1):
         if (today1 < deadtime):
             return [1,data,now_num1]
@@ -153,7 +153,7 @@ def get_qian1():
         return [3,[]]
 
 def wri_ex():
-    data = xlrd.open_workbook('data/1.xls', formatting_info=True)
+    data = xlrd.open_workbook('data/2.xls', formatting_info=True)
     table = data.sheets()[0]   #通过索引顺序获取
     w=copy(data)
     mydata = get_qinkuang()
@@ -168,7 +168,7 @@ def wri_ex():
     w.save('data/excels/{}.xls'.format(filename))
     data1 = xlrd.open_workbook('book2.xls')
     table1 = data1.sheets()[0]
-    for i in range(0,16):
+    for i in range(0,18):
         pass
         a = table1.row_values(i)
         print(a)
