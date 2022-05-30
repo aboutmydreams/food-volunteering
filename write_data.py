@@ -3,130 +3,98 @@ from xlrd import open_workbook
 from xlutils.copy import copy
 def get_timemin():
     now_time0 = '[\''+time.ctime().replace(':','\',\'').replace(' ','\',\'')+'\']'
-    now_time = eval(now_time0)
-    return now_time
+    return eval(now_time0)
 def mkdir(path):
     path=path.strip()
     path=path.rstrip("\\")
-    # 判断路径是否存在
-    # 存在     True
-    # 不存在   False
-    isExists=os.path.exists(path)
-    if not isExists:
-        os.makedirs(path)
-        print(path+' 创建成功')
-        return True
-    else:
+    if isExists := os.path.exists(path):
         # 如果目录存在则不创建，并提示目录已存在
-        print (path+' 目录已存在')
+        print(f'{path} 目录已存在')
         return False
+    else:
+        os.makedirs(path)
+        print(f'{path} 创建成功')
+        return True
 def getYesterday():
     today=datetime.date.today()
     oneday=datetime.timedelta(days=1)
-    yesterday=str(today-oneday).replace('-','')
-    return yesterday
+    return str(today-oneday).replace('-','')
 def today():
-    today = str(datetime.date.today()).replace('-','')
-    return today
+    return str(datetime.date.today()).replace('-','')
 '''
 # 定义要创建的目录
 #mkpath="data"
 #mkdir(mkpath)
 '''
 def write_actname(time1):
-    fa = open('data/allact.txt','a')
-    fa.write(time1+'\n')
-    fa.close()
+    with open('data/allact.txt','a') as fa:
+        fa.write(time1+'\n')
 
 def read_actname():
     fa = open('data/allact.txt','r')
-    ac_list = eval(str(fa.readlines()).replace('\\n',''))
-    return ac_list
+    return eval(str(fa.readlines()).replace('\\n',''))
 
 def write_set(time1,time2,title,num):
-    f = open('data/time.txt','w')
-    f.write(time1+'\n'+time2+'\n'+title+'\n'+num)
-    f.close()
-    is_e = os.path.exists('data/log/{}.txt'.format(time1))
-    if is_e:
-        pass
+    with open('data/time.txt','w') as f:
+        f.write(time1+'\n'+time2+'\n'+title+'\n'+num)
+    if is_e := os.path.exists(f'data/log/{time1}.txt'):
         print('存在')
     else:
-        f1 = open('data/log/{}.txt'.format(time1),'w')
-        f1.write('[]')
-        f1.close()
+        with open(f'data/log/{time1}.txt', 'w') as f1:
+            f1.write('[]')
         write_actname(time1)
 
 def read_set():
-    f = open('data/time.txt','r')
-    sets = eval(str(f.readlines()).replace('\\n',''))
-    f.close()
+    with open('data/time.txt','r') as f:
+        sets = eval(str(f.readlines()).replace('\\n',''))
     return sets
 
 def now_num():
     near_time = read_set()[0]
-    f = open('data/log/{}.txt'.format(near_time),'r')
-    data = eval(f.read())
-    num = len(data)
-    f.close()
+    with open(f'data/log/{near_time}.txt', 'r') as f:
+        data = eval(f.read())
+        num = len(data)
     return str(num) 
 
 def baoming(name,phone):
     data = []
     hour = get_timemin()[-4]
     near_time = read_set()[0]
-    f = open('data/log/{}.txt'.format(near_time),'r')
+    f = open(f'data/log/{near_time}.txt', 'r')
     data0 = eval(f.read())
     name_list = []
     if len(data0)!=0:
-        for i in data0:
-            name_list.append(i[0])
+        name_list.extend(i[0] for i in data0)
         if name in name_list:
             name_site = name_list.index(name)
             data0[name_site][-1]=phone
             print(name_site)
             f.close()
-            f = open('data/log/{}.txt'.format(near_time),'w')
+            f = open(f'data/log/{near_time}.txt', 'w')
             fs = open('data/ban.json','r')
-            f.write(str(data0))
-            f.close()
         else:
-            pass
             f.close()
-            f = open('data/log/{}.txt'.format(near_time),'w')
+            f = open(f'data/log/{near_time}.txt', 'w')
             fs = open('data/ban.json','r')
             ban_list_zidian = eval(fs.read())
-            if name in ban_list_zidian:
-                this_ban = ban_list_zidian['{}'.format(name)]
-            else:
-                this_ban = ''
-            data.append(name)
-            data.append(this_ban)
-            data.append(phone)
+            this_ban = ban_list_zidian[f'{name}'] if name in ban_list_zidian else ''
+            data.extend((name, this_ban, phone))
             data0.append(data)
-            f.write(str(data0))
-            f.close()
     else:
         f.close()
-        f = open('data/log/{}.txt'.format(near_time),'w')
+        f = open(f'data/log/{near_time}.txt', 'w')
         fs = open('data/ban.json','r')
         ban_list_zidian = eval(fs.read())
-        if name in ban_list_zidian:
-            this_ban = ban_list_zidian['{}'.format(name)]
-        else:
-            this_ban = ''
-        data.append(name)
-        data.append(this_ban)
-        data.append(phone)
+        this_ban = ban_list_zidian[f'{name}'] if name in ban_list_zidian else ''
+        data.extend((name, this_ban, phone))
         data0.append(data)
-        f.write(str(data0))
-        f.close()
+    f.write(str(data0))
+    f.close()
 
 def get_qinkuang():
     near_time = read_set()[0]
-    f = open('data/log/{}.txt'.format(near_time),'r')
-    data = eval(f.read())
-    f.close()
+    with open(f'data/log/{near_time}.txt', 'r') as f:
+        data = eval(f.read())
     return data
 
 def get_qian1():
@@ -157,19 +125,16 @@ def wri_ex():
     table = data.sheets()[0]   #通过索引顺序获取
     w=copy(data)
     mydata = get_qinkuang()
-    n=3
-    for i in mydata:
+    for n, i in enumerate(mydata, start=3):
         w.get_sheet(0).write(n,2,i[0])
         w.get_sheet(0).write(n,3,i[1])
         w.get_sheet(0).write(n,4,i[2])
-        n+=1
     filename = read_actname()[-1]
     w.save('book2.xls')
-    w.save('data/excels/{}.xls'.format(filename))
+    w.save(f'data/excels/{filename}.xls')
     data1 = xlrd.open_workbook('book2.xls')
     table1 = data1.sheets()[0]
-    for i in range(0,18):
-        pass
+    for i in range(18):
         a = table1.row_values(i)
         print(a)
 # write_set('20181103','20181104','大爱心','20')
